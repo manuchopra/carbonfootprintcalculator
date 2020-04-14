@@ -26,6 +26,19 @@ var app = new Vue({
           }, 
           function (mode) {
             
+            //mode is a data object, comes from Google Maps
+            //mode is also array of arrays 
+            //mode = [type, miles, time]
+            //mode = [list1]
+            //list1 = [type, miles, time] 
+            
+            //mode[0].miles = number of miles
+            //mode[0].text = type of transport 
+            //mode[0][0] = type of transport
+            //mode[0][1] = number of miles 
+            
+            //there are also data types like strings and floats. mode[0].miles is a string which is the number of miles, and parseFloat converts strings to floats
+            
             console.log(mode[0].text)
             //alert(mode)
             if (mode[0].text == 'car') {
@@ -36,11 +49,11 @@ var app = new Vue({
 
               var parsedMiles = Math.round(parseFloat(mode[0].miles))
               console.log(parsedMiles)
+              //so we need to figure out parsedMiles for Amazon
               document.getElementById('milesContainer').style.display = "block";
               document.getElementById('miles').textContent = parsedMiles + " kilometers";
               document.getElementById('mainLine').textContent = "Your Carbon Footprint is:";
               
-              var footprint = parseFloat(mode[0].footprint).toFixed(3)
               var footprint = 0.1095 * parsedMiles
               document.getElementById('carbonFootprint').textContent = footprint
               document.getElementById('cfUnit').textContent = "kg of CO2"
